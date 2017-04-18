@@ -1,6 +1,6 @@
 # SilverStripe 3 Username Authentication
 
-Allows CMS admins to login via a username and also provides a form for retrieving a username.
+Allows CMS admins to login using a username and also provides a form for retrieving a username.
 
 ## Requirements
  * SilverStripe ^3.5
