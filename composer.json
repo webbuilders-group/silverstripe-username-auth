@@ -7,13 +7,15 @@
     "authors": [
         {
             "name": "Ryan McLaren",            
-			"email": "ryan@webbuildersgroup.com"
-            "role": "Developer"
+			"email": "ryan@webbuildersgroup.com"            
         }
     ],
     "require": {
         "silverstripe/framework": "~3.5"
     },
+    "extra": {
+		"installer-name": "username-auth"
+	},
     "support": {
         "issues": "https://github.com/webbuilders-group/silverstripe-username-auth/issues"
     }
