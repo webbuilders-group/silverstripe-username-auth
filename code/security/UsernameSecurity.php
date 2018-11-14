@@ -13,7 +13,7 @@ class UsernameSecurity extends Security {
 
     private static $allowed_actions = array(
                                             'lostusername',
-                                            'ForgotUsernameForm',
+                                            'LostUsernameForm',
                                             'usernamesent'
                                         );
 
@@ -45,10 +45,10 @@ class UsernameSecurity extends Security {
 					'_Enter your e-mail address and we will send you a email containing your username'
 				) .
 				'</p>',
-			'Form' => $this->ForgotUsernameForm(),
+			'Form' => $this->LostUsernameForm(),
 		));
 		
-		return $customisedController->renderWith($this->getTemplatesFor('forgotusername'));
+		return $customisedController->renderWith($this->getTemplatesFor('lostusername'));
     }
 
 	/**
@@ -56,10 +56,10 @@ class UsernameSecurity extends Security {
 	 *
 	 * @return Form Returns the forgot username form
 	 */
-	public function ForgotUsernameForm() {
+	public function LostUsernameForm() {
 		return UsernameMemberLoginForm::create(
 			$this,
-			'ForgotUsernameForm',
+			'LostUsernameForm',
 			new FieldList(
 				new EmailField('Email', _t('Member.EMAIL', 'Email'))
 			),
