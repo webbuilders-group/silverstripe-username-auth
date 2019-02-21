@@ -1,5 +1,8 @@
 <?php
 
+use SilverStripe\Security\MemberAuthenticator\MemberAuthenticator;
+use SilverStripe\Control\Controller;
+
 class UsernameMemberAuthenticator extends MemberAuthenticator {
     
     /**

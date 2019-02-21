@@ -1,5 +1,21 @@
 <?php
 
+use SilverStripe\Security\LoginForm;
+use SilverStripe\Control\Director;
+use SilverStripe\View\Requirements;
+use SilverStripe\Control\HTTPRequest;
+use SilverStripe\Core\Injector\Injector;
+use SilverStripe\Security\Security;
+use SilverStripe\Security\Member;
+use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\HiddenField;
+use SilverStripe\Forms\FormAction;
+use SilverStripe\Forms\TextField;
+use SilverStripe\Forms\PasswordField;
+use SilverStripe\Forms\CheckboxField;
+use SilverStripe\Forms\LiteralField;
+use SilverStripe\Forms\RequiredFields;
+
 class UsernameMemberLoginForm extends LoginForm {
 
 	/**
@@ -39,6 +55,10 @@ class UsernameMemberLoginForm extends LoginForm {
 	 */
 	public function __construct($controller, $name, $fields = null, $actions = null,
 								$checkCurrentUser = true) {
+		
+		//get the session
+		$request = Injector::inst()->get(HTTPRequest::class);
+		$session = $request->getSession();
 
 		// This is now set on the class directly to make it easier to create subclasses
 		// $this->authenticator_class = $authenticatorClassName;
@@ -51,10 +71,10 @@ class UsernameMemberLoginForm extends LoginForm {
 		if(isset($_REQUEST['BackURL'])) {
 			$backURL = $_REQUEST['BackURL'];
 		} else {
-			$backURL = Session::get('BackURL');
+			$backURL = $session->get('BackURL');
 		}
 
-		if($checkCurrentUser && Member::currentUser() && Member::logged_in_session_exists()) {
+		if($checkCurrentUser && Security::getCurrentUser()) {
 			$fields = FieldList::create(
 				HiddenField::create("AuthenticationMethod", null, $this->authenticator_class, $this)
 			);
@@ -72,7 +92,7 @@ class UsernameMemberLoginForm extends LoginForm {
 					PasswordField::create("Password", _t('Member.PASSWORD', 'Password'))
 				);
 				if(Security::config()->remember_username) {
-					$emailField->setValue(Session::get('SessionForms.MemberLoginForm.Email'));
+					$emailField->setValue($session->get('SessionForms.MemberLoginForm.Email'));
 				} else {
 					// Some browsers won't respect this attribute unless it's added to the form
 					$this->setAttribute('autocomplete', 'off');
@@ -128,8 +148,12 @@ JS;
 	 */
 	protected function getMessageFromSession() {
 
-		$forceMessage = Session::get('MemberLoginForm.force_message');
-		if(($member = Member::currentUser()) && !$forceMessage) {
+		//get the session
+		$request = Injector::inst()->get(HTTPRequest::class);
+		$session = $request->getSession();
+
+		$forceMessage = $session->get('MemberLoginForm.force_message');
+		if(($member = Security::getCurrentUser()) && !$forceMessage) {
 			$this->message = _t(
 				'Member.LOGGEDINAS',
 				"You're logged in as {name}.",
@@ -139,7 +163,7 @@ JS;
 
 		// Reset forced message
 		if($forceMessage) {
-			Session::set('MemberLoginForm.force_message', false);
+			$session->set('MemberLoginForm.force_message', false);
 		}
 
 		return parent::getMessageFromSession();
