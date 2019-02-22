@@ -1,5 +1,4 @@
 <?php
 
-Authenticator::register_authenticator('UsernameMemberAuthenticator');
-
-Authenticator::unregister('MemberAuthenticator');
+//Authenticator::register_authenticator('UsernameMemberAuthenticator');
+//Authenticator::unregister('MemberAuthenticator');
