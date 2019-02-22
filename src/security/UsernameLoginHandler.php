@@ -91,54 +91,53 @@ class UsernameLoginHandler extends RequestHandler {
         );
     }
 
-    // /**
-	//  * Login form handler method
-	//  *
-	//  * This method is called when the user clicks on "Log in"
-	//  *
-	//  * @param array $data Submitted data
-	//  */
-	// public function dologin($data, UsernameMemberLoginForm $form, HTTPRequest $request) {
-    //     var_dump('test'); exit;
-	// 	$failureMessage = null;
+    /**
+	 * Login form handler method
+	 *
+	 * This method is called when the user clicks on "Log in"
+	 *
+	 * @param array $data Submitted data
+	 */
+	public function dologin($data, UsernameMemberLoginForm $form, HTTPRequest $request) {
+		$failureMessage = null;
 
-    //     $this->extend('beforeLogin');
-    //     // Successful login
-    //     /** @var ValidationResult $result */
-    //     if ($member = $this->checkLogin($data, $request, $result)) {
-    //         $this->performLogin($member, $data, $request);
-    //         // Allow operations on the member after successful login
-    //         $this->extend('afterLogin', $member);
+        $this->extend('beforeLogin');
+        // Successful login
+        /** @var ValidationResult $result */
+        if ($member = $this->checkLogin($data, $request, $result)) {
+            $this->performLogin($member, $data, $request);
+            // Allow operations on the member after successful login
+            $this->extend('afterLogin', $member);
 
-    //         return $this->redirectAfterSuccessfulLogin();
-    //     }
+            return $this->redirectAfterSuccessfulLogin();
+        }
 
-    //     $this->extend('failedLogin');
+        $this->extend('failedLogin');
 
-    //     $message = implode("; ", array_map(
-    //         function ($message) {
-    //             return $message['message'];
-    //         },
-    //         $result->getMessages()
-    //     ));
+        $message = implode("; ", array_map(
+            function ($message) {
+                return $message['message'];
+            },
+            $result->getMessages()
+        ));
 
-    //     $form->sessionMessage($message, 'bad');
+        $form->sessionMessage($message, 'bad');
 
-    //     // Failed login
+        // Failed login
 
-    //     /** @skipUpgrade */
-    //     if (array_key_exists('Email', $data)) {
-    //         $rememberMe = (isset($data['Remember']) && Security::config()->get('autologin_enabled') === true);
-    //         $this
-    //             ->getRequest()
-    //             ->getSession()
-    //             ->set('SessionForms.MemberLoginForm.Email', $data['Email'])
-    //             ->set('SessionForms.MemberLoginForm.Remember', $rememberMe);
-    //     }
+        /** @skipUpgrade */
+        if (array_key_exists('Email', $data)) {
+            $rememberMe = (isset($data['Remember']) && Security::config()->get('autologin_enabled') === true);
+            $this
+                ->getRequest()
+                ->getSession()
+                ->set('SessionForms.MemberLoginForm.Email', $data['Email'])
+                ->set('SessionForms.MemberLoginForm.Remember', $rememberMe);
+        }
 
-    //     // Fail to login redirects back to form
-    //     return $form->getRequestHandler()->redirectBackToForm();
-    // }
+        // Fail to login redirects back to form
+        return $form->getRequestHandler()->redirectBackToForm();
+    }
     
     public function getReturnReferer()
     {
@@ -199,6 +198,44 @@ class UsernameLoginHandler extends RequestHandler {
         return $this->redirectBack();
     }
 
+    /**
+     * Try to authenticate the user
+     *
+     * @param array $data Submitted data
+     * @param HTTPRequest $request
+     * @param ValidationResult $result
+     * @return Member Returns the member object on successful authentication
+     *                or NULL on failure.
+     */
+    public function checkLogin($data, HTTPRequest $request, ValidationResult &$result = null)
+    {
+        $member = $this->authenticator->authenticate($data, $request, $result);
+        if ($member instanceof Member) {
+            return $member;
+        }
+
+        return null;
+    }
+
+    /**
+     * Try to authenticate the user
+     *
+     * @param Member $member
+     * @param array $data Submitted data
+     * @param HTTPRequest $request
+     * @return Member Returns the member object on successful authentication
+     *                or NULL on failure.
+     */
+    public function performLogin($member, $data, HTTPRequest $request)
+    {
+        /** IdentityStore */
+        $rememberMe = (isset($data['Remember']) && Security::config()->get('autologin_enabled'));
+        /** @var IdentityStore $identityStore */
+        $identityStore = Injector::inst()->get(IdentityStore::class);
+        $identityStore->logIn($member, $rememberMe, $request);
+
+        return $member;
+    }
     
 
 }
