@@ -25,5 +25,14 @@ class UsernameMemberAuthenticator extends MemberAuthenticator {
     public function getLostUsernameHandler($link)
     {
         return LostUsernameHandler::create($link, $this);
+	}
+	
+	/**
+     * @param string $link
+     * @return LostPasswordHandler
+     */
+    public function getLostPasswordHandler($link)
+    {
+        return LostPasswordHandler::create($link, $this);
     }
 }
