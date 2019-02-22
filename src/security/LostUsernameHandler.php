@@ -7,6 +7,7 @@ use SilverStripe\Security\Authenticator;
 use SilverStripe\Security\Member;
 use SilverStripe\Control\HTTPResponse;
 use SilverStripe\Control\Email\Email;
+use SilverStripe\Core\Convert;
 
 class LostUsernameHandler extends RequestHandler
 {   
@@ -128,7 +129,7 @@ class LostUsernameHandler extends RequestHandler
         
 
         // Allow vetoing forgot password requests
-        $results = $this->extend('forgotPassword', $member);
+        $results = $this->extend('forgotUsername', $member);
         if ($results && is_array($results) && in_array(false, $results, true)) {
             return $this->redirectToLostPassword();
         }
@@ -198,15 +199,18 @@ class LostUsernameHandler extends RequestHandler
 	 * @return string Returns the "password sent" page as HTML code.
 	 */
     public function usernamesent($request){
+
+        $email = Convert::raw2xml(rawurldecode($request->param('ID')) . '.' . $request->getExtension());
         $message = _t(
-            'SilverStripe\\Security\\Security.PASSWORDRESETSENTTEXT',
-            "Thank you. A reset link has been sent, provided an account exists for this email address."
+            'UsernameSecurity.USERNAMESENTHEADER', "Username sent to '{email}'",
+            array('email' => $email)
         );
 
         return [
             'Title' => _t(
-                'SilverStripe\\Security\\Security.PASSWORDRESETSENTHEADER',
-                "Password reset link sent"
+                'UsernameSecurity.USERNAMESENTTEXT',
+                "Thank you! the username has been sent to '{email}', provided an account exists for this email". " address.",
+                array('email' => $email)
             ),
             'Content' => DBField::create_field('HTMLFragment', "<p>$message</p>"),
         ];
