@@ -4,8 +4,8 @@ en:
         NOTEFORGOTUSERNAME: "Enter your e-mail address and we will send you a email containing your username"
         FORGOTUSERNAMEBUTTONSEND: "Send me my username"
         LOSTUSERNAMEHEADER: "Lost Username"
-        USERNAMESENTHEADER: "Username sent to '%s'"
-        USERNAMESENTTEXT: "Thank you! the username has been sent to '%s', provided an account exists for this email"
+        USERNAMESENTHEADER: "Username sent to '{email}'"
+        USERNAMESENTTEXT: "Thank you! the username has been sent to '{email}', provided an account exists for this email"
     Member:
         BUTTONLOSTUSERNAME: "I've lost my username"
         SUBJECTYOURUSERNAME: "Your Username for %s"

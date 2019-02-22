@@ -187,7 +187,7 @@ class LostUsernameHandler extends RequestHandler
      */
     protected function redirectToSuccess(array $data)
     {
-        $link = $this->link('usernamesent');
+        $link = $this->link('usernamesent?email='.$data['Email']);
 
         return $this->redirect($this->addBackURLParam($link));
     }
@@ -199,12 +199,10 @@ class LostUsernameHandler extends RequestHandler
 	 * @return string Returns the "password sent" page as HTML code.
 	 */
     public function usernamesent($request){
-
-        $email = Convert::raw2xml(rawurldecode($request->param('ID')) . '.' . $request->getExtension());
+        $email = Convert::raw2xml(rawurldecode($request->getVar('email')) . '.' . $request->getExtension());
         $message = _t(
             'UsernameSecurity.USERNAMESENTHEADER', "Username sent to '{email}'",
-            array('email' => $email)
-        );
+            ['email' => $email]);
 
         return [
             'Title' => _t(
