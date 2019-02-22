@@ -4,13 +4,18 @@ After:
     - "framework/*"
 ---
 
-Member:
+SilverStripe\Security\Member:
     extensions:
         - UsernameMemberExtension
-    unique_identifier_field: Username            
+    unique_identifier_field: Username
 
-Director:
-  rules:
-    'UsernameSecurity//$Action/$ID/$OtherID': 'UsernameSecurity'
-    'Security//lostusername/$ID/$OtherID': 'UsernameSecurity'
-    'Security//usernamesent/$ID/$OtherID': 'UsernameSecurity'    
+---
+Name: MyAuth
+After:
+  - '#coresecurity'
+---
+SilverStripe\Core\Injector\Injector:
+  SilverStripe\Security\Security:
+    properties:
+      Authenticators:
+        default: %$UsernameMemberAuthenticator

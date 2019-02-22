@@ -1,5 +1,16 @@
 <?php
 
+use SilverStripe\Security\Security;
+use SilverStripe\Control\Director;
+use SilverStripe\Control\Controller;
+use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\EmailField;
+use SilverStripe\Forms\FormAction;
+use SilverStripe\Core\Convert;
+use SilverStripe\Control\HTTPResponse;
+use SilverStripe\Security\Authenticator;
+use SilverStripe\Core\Injector\Injector;
+
 class UsernameSecurity extends Security {
 
     /**
@@ -27,81 +38,31 @@ class UsernameSecurity extends Security {
 		return Controller::join_links(Director::baseURL(), "UsernameSecurity", $action);
 	}
 
-    /**
-     * show the forgot username page
-     * @return type
-     */
-    public function lostusername(){
-        $controller = $this->getResponseController(_t('UsernameSecurity.FORGOTUSERNAME', '_Forgot Username'));
-
-		// if the controller calls Director::redirect(), this will break early
-		if(($response = $controller->getResponse()) && $response->isFinished()) return $response;
-
-		$customisedController = $controller->customise(array(
-			'Content' =>
-				'<p>' .
-				_t(
-					'UsernameSecurity.NOTEFORGOTUSERNAME',
-					'_Enter your e-mail address and we will send you a email containing your username'
-				) .
-				'</p>',
-			'Form' => $this->LostUsernameForm(),
-		));
-		
-		return $customisedController->renderWith($this->getTemplatesFor('lostusername'));
-    }
-
+	
 	/**
-	 * Factory method for the forgot username form
-	 *
-	 * @return Form Returns the forgot username form
-	 */
-	public function LostUsernameForm() {
-		return UsernameMemberLoginForm::create(
-			$this,
-			'LostUsernameForm',
-			new FieldList(
-				new EmailField('Email', _t('Member.EMAIL', 'Email'))
-			),
-			new FieldList(
-				new FormAction(
-					'forgotUsername',
-					_t('UsernameSecurity.FORGOTUSERNAMEBUTTONSEND', '_Send me my username')
-				)
-			),
-			false
-		);
-	}
+     * Show the "lost password" page
+     *
+     * @return string Returns the "lost password" page as HTML code.
+     */
+    public function lostusername()
+    {
+        $handlers = [];
+		//$authenticators = Injector::inst()->get('UsernameMemberAuthenticator');
+        /** @var Authenticator $authenticator */
+        //foreach ($authenticators as $authenticator) {
+            $handlers[] = Injector::inst()->get('UsernameMemberAuthenticator')->getLostUsernameHandler(
+                Controller::join_links($this->Link(), 'lostusername')
+            );
+        //}
 
-    /**
-	 * Show the "username sent" page, after a user has requested
-	 * to send an email with their username	 
-	 * @param SS_HTTPRequest $request The SS_HTTPRequest for this action.
-	 * @return string Returns the "password sent" page as HTML code.
-	 */
-    public function usernamesent($request){
-        $controller = $this->getResponseController(_t('UsernameSecurity.LOSTUSERNAMEHEADER', 'Lost Username'));
-
-		// if the controller calls Director::redirect(), this will break early
-		if(($response = $controller->getResponse()) && $response->isFinished()) return $response;
-
-		$email = Convert::raw2xml(rawurldecode($request->param('ID')) . '.' . $request->getExtension());
-
-		$customisedController = $controller->customise(array(
-			'Title' => _t('UsernameSecurity.USERNAMESENTHEADER', "Username sent to '{email}'",
-				array('email' => $email)),
-			'Content' =>
-				"<p>"
-				. _t('UsernameSecurity.USERNAMESENTTEXT',
-					"Thank you! the username has been sent to '{email}', provided an account exists for this email"
-					. " address.",
-					array('email' => $email))
-				. "</p>",
-			'Email' => $email
-		));
-        
-		return $customisedController->renderWith($this->getTemplatesFor('usernamesent'));
+        return $this->delegateToMultipleHandlers(
+            $handlers,
+            _t('SilverStripe\\Security\\Security.LOSTUSERNAMEHEADER', 'Lost Username'),
+            $this->getTemplatesFor('lostusername'),
+            [$this, 'aggregateAuthenticatorResponses']
+        );
     }
+	
 
 	/**
 	 * Get the URL of the lost username page.

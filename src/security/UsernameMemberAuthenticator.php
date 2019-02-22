@@ -3,6 +3,7 @@
 use SilverStripe\Security\MemberAuthenticator\MemberAuthenticator;
 use SilverStripe\Control\Controller;
 
+
 class UsernameMemberAuthenticator extends MemberAuthenticator {
     
     /**
@@ -13,8 +14,16 @@ class UsernameMemberAuthenticator extends MemberAuthenticator {
 	 * @return Form Returns the login form to use with this authentication
 	 *              method
 	 */
-	public static function get_login_form(Controller $controller) {        
-		return UsernameMemberLoginForm::create($controller, "LoginForm");
+	public function getLoginHandler($link) {        
+		return UsernameLoginHandler::create($link, $this);
 	}
 
+	/**
+     * @param string $link
+     * @return LostPasswordHandler
+     */
+    public function getLostUsernameHandler($link)
+    {
+        return LostUsernameHandler::create($link, $this);
+    }
 }
