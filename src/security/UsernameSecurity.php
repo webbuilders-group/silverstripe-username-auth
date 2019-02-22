@@ -49,11 +49,9 @@ class UsernameSecurity extends Security {
         $handlers = [];
 		//$authenticators = Injector::inst()->get('UsernameMemberAuthenticator');
         /** @var Authenticator $authenticator */
-        //foreach ($authenticators as $authenticator) {
-            $handlers[] = Injector::inst()->get('UsernameMemberAuthenticator')->getLostUsernameHandler(
-                Controller::join_links($this->Link(), 'lostusername')
-            );
-        //}
+		$handlers[] = Injector::inst()->get('UsernameMemberAuthenticator')->getLostUsernameHandler(
+			Controller::join_links($this->Link(), 'lostusername')
+		);
 
         return $this->delegateToMultipleHandlers(
             $handlers,

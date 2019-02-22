@@ -14,10 +14,6 @@ use SilverStripe\Forms\PasswordField;
 use SilverStripe\Forms\CheckboxField;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\RequiredFields;
-use SilverStripe\Security\MemberAuthenticator\ChangePasswordForm;
-use SilverStripe\Control\Controller;
-use SilverStripe\Core\Convert;
-use SilverStripe\Security\MemberAuthenticator\MemberLoginForm;
 use SilverStripe\Forms\Form;
 use SilverStripe\Security\RememberLoginHash;
 
