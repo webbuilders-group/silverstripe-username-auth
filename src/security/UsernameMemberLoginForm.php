@@ -1,5 +1,7 @@
 <?php
 
+namespace WebbuildersGroup\UsernameAuth\Security;
+
 use SilverStripe\Control\Director;
 use SilverStripe\View\Requirements;
 use SilverStripe\Control\HTTPRequest;

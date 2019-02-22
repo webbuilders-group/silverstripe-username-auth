@@ -1,0 +1,11 @@
+---
+Name: approutes
+before:
+  - '#rootroutes'
+  - '#coreroutes'
+---
+SilverStripe\Control\Director:
+  rules:
+    'UsernameSecurity//$Action/$ID/$OtherID': 'WebbuildersGroup\UsernameAuth\Security\UsernameSecurity'
+    'Security//lostusername/$ID/$OtherID': 'WebbuildersGroup\UsernameAuth\Security\UsernameSecurity'
+    'Security//usernamesent/$ID/$OtherID': 'WebbuildersGroup\UsernameAuth\Security\UsernameSecurity'

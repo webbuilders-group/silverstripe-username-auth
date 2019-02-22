@@ -1,5 +1,7 @@
 <?php
 
+namespace WebbuildersGroup\UsernameAuth\Security;
+
 use SilverStripe\Security\Security;
 use SilverStripe\Control\Director;
 use SilverStripe\Control\Controller;
@@ -48,7 +50,7 @@ class UsernameSecurity extends Security {
     {
         $handlers = [];
         /** @var Authenticator $authenticator */
-		$handlers[] = Injector::inst()->get('UsernameMemberAuthenticator')->getLostUsernameHandler(
+		$handlers[] = Injector::inst()->get(UsernameMemberAuthenticator::class)->getLostUsernameHandler(
 			Controller::join_links(Injector::inst()->get(Security::class)->Link(), 'lostusername')
 		);
 

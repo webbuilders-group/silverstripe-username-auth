@@ -1,5 +1,7 @@
 <?php
 
+namespace WebbuildersGroup\UsernameAuth\Security;
+
 use SilverStripe\Control\HTTPRequest;
 use SilverStripe\Security\MemberAuthenticator\LoginHandler;
 use SilverStripe\Security\MemberAuthenticator\MemberLoginForm;
@@ -10,6 +12,7 @@ use SilverStripe\Core\Injector\Injector;
 use SilverStripe\Security\IdentityStore;
 use SilverStripe\Security\Security;
 use SilverStripe\ORM\ValidationResult;
+use WebbuildersGroup\UsernameAuth\Security\UsernameMemberLoginForm;
 
 class UsernameLoginHandler extends RequestHandler {
 
