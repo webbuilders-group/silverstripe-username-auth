@@ -5,6 +5,11 @@ use SilverStripe\Security\MemberAuthenticator\LoginHandler;
 use SilverStripe\Security\MemberAuthenticator\MemberLoginForm;
 use SilverStripe\Control\RequestHandler;
 use SilverStripe\Control\Controller;
+use SilverStripe\Security\Member;
+use SilverStripe\Core\Injector\Injector;
+use SilverStripe\Security\IdentityStore;
+use SilverStripe\Security\Security;
+use SilverStripe\ORM\ValidationResult;
 
 class UsernameLoginHandler extends RequestHandler {
 
