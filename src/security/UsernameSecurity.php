@@ -47,10 +47,9 @@ class UsernameSecurity extends Security {
     public function lostusername()
     {
         $handlers = [];
-		//$authenticators = Injector::inst()->get('UsernameMemberAuthenticator');
         /** @var Authenticator $authenticator */
 		$handlers[] = Injector::inst()->get('UsernameMemberAuthenticator')->getLostUsernameHandler(
-			Controller::join_links($this->Link(), 'lostusername')
+			Controller::join_links(Injector::inst()->get(Security::class)->Link(), 'lostusername')
 		);
 
         return $this->delegateToMultipleHandlers(
