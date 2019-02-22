@@ -14,7 +14,7 @@ class UsernameMemberAuthenticator extends MemberAuthenticator {
 	 * @return Form Returns the login form to use with this authentication
 	 *              method
 	 */
-	public function getLoginHandler($link) {        
+	public function getLoginHandler($link) {    
 		return UsernameLoginHandler::create($link, $this);
 	}
 
