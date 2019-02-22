@@ -1,5 +1,7 @@
 <?php
 
+namespace WebbuildersGroup\UsernameAuth\Security;
+
 use SilverStripe\Forms\EmailField;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\FormAction;

@@ -1,7 +1,12 @@
 <?php
 
+namespace WebbuildersGroup\UsernameAuth\Security;
+
 use SilverStripe\Security\MemberAuthenticator\MemberAuthenticator;
 use SilverStripe\Control\Controller;
+use WebbuildersGroup\UsernameAuth\Security\LostPasswordHandler;
+use WebbuildersGroup\UsernameAuth\Security\LostUsernameHandler;
+use WebbuildersGroup\UsernameAuth\Security\UsernameLoginHandler;
 
 
 class UsernameMemberAuthenticator extends MemberAuthenticator {
@@ -20,7 +25,7 @@ class UsernameMemberAuthenticator extends MemberAuthenticator {
 
 	/**
      * @param string $link
-     * @return LostPasswordHandler
+     * @return LostUsernameHandler
      */
     public function getLostUsernameHandler($link)
     {

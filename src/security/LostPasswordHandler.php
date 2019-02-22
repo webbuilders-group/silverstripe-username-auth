@@ -1,5 +1,7 @@
 <?php
 
+namespace WebbuildersGroup\UsernameAuth\Security;
+
 use SilverStripe\Security\Member;
 
 class LostPasswordHandler extends \SilverStripe\Security\MemberAuthenticator\LostPasswordHandler {

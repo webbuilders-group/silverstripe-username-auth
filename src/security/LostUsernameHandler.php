@@ -1,5 +1,7 @@
 <?php
 
+namespace WebbuildersGroup\UsernameAuth\Security;
+
 use SilverStripe\Control\RequestHandler;
 use SilverStripe\ORM\FieldType\DBField;
 use SilverStripe\Control\Controller;
@@ -8,6 +10,7 @@ use SilverStripe\Security\Member;
 use SilverStripe\Control\HTTPResponse;
 use SilverStripe\Control\Email\Email;
 use SilverStripe\Core\Convert;
+use WebbuildersGroup\UsernameAuth\Security\LostUsernameForm;
 
 class LostUsernameHandler extends RequestHandler
 {   

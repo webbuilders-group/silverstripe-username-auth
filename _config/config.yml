@@ -6,7 +6,7 @@ After:
 
 SilverStripe\Security\Member:
     extensions:
-        - UsernameMemberExtension
+        - WebbuildersGroup\UsernameAuth\Extensions\UsernameMemberExtension
     unique_identifier_field: Username
 
 ---
@@ -18,4 +18,4 @@ SilverStripe\Core\Injector\Injector:
   SilverStripe\Security\Security:
     properties:
       Authenticators:
-        default: %$UsernameMemberAuthenticator
+        default: %$WebbuildersGroup\UsernameAuth\Security\UsernameMemberAuthenticator
