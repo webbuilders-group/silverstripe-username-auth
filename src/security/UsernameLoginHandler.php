@@ -2,20 +2,19 @@
 
 namespace WebbuildersGroup\UsernameAuth\Security;
 
-use SilverStripe\Control\HTTPRequest;
-use SilverStripe\Security\MemberAuthenticator\LoginHandler;
-use SilverStripe\Security\MemberAuthenticator\MemberLoginForm;
-use SilverStripe\Control\RequestHandler;
 use SilverStripe\Control\Controller;
-use SilverStripe\Security\Member;
+use SilverStripe\Control\HTTPRequest;
+use SilverStripe\Control\RequestHandler;
 use SilverStripe\Core\Injector\Injector;
-use SilverStripe\Security\IdentityStore;
-use SilverStripe\Security\Security;
 use SilverStripe\ORM\ValidationResult;
+use SilverStripe\Security\IdentityStore;
+use SilverStripe\Security\Member;
+use SilverStripe\Security\MemberAuthenticator\MemberLoginForm;
+use SilverStripe\Security\Security;
 use WebbuildersGroup\UsernameAuth\Security\UsernameMemberLoginForm;
 
-class UsernameLoginHandler extends RequestHandler {
-
+class UsernameLoginHandler extends RequestHandler
+{
 
     /**
      * @var Authenticator
@@ -45,7 +44,6 @@ class UsernameLoginHandler extends RequestHandler {
      * @var string
      */
     protected $link = null;
-
 
     /**
      * Return a link to this request handler.
@@ -100,14 +98,15 @@ class UsernameLoginHandler extends RequestHandler {
     }
 
     /**
-	 * Login form handler method
-	 *
-	 * This method is called when the user clicks on "Log in"
-	 *
-	 * @param array $data Submitted data
-	 */
-	public function dologin($data, UsernameMemberLoginForm $form, HTTPRequest $request) {
-		$failureMessage = null;
+     * Login form handler method
+     *
+     * This method is called when the user clicks on "Log in"
+     *
+     * @param array $data Submitted data
+     */
+    public function dologin($data, UsernameMemberLoginForm $form, HTTPRequest $request)
+    {
+        $failureMessage = null;
 
         $this->extend('beforeLogin');
         // Successful login
@@ -146,7 +145,7 @@ class UsernameLoginHandler extends RequestHandler {
         // Fail to login redirects back to form
         return $form->getRequestHandler()->redirectBackToForm();
     }
-    
+
     public function getReturnReferer()
     {
         return $this->Link();
@@ -244,6 +243,5 @@ class UsernameLoginHandler extends RequestHandler {
 
         return $member;
     }
-    
 
 }
