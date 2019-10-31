@@ -230,7 +230,7 @@ class LostUsernameHandler extends RequestHandler
             ->setHTMLTemplate('ForgotUsernameEmail')
             ->setData($member)
             ->setSubject(_t(
-                'Member.SUBJECTYOURUSERNAME',
+                'SilverStripe\\Security\\Member.SUBJECTYOURUSERNAME',
                 "Your Username for {domain}",
                 'Email subject'
             ))

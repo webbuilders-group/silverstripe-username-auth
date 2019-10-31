@@ -95,7 +95,7 @@ class UsernameMemberLoginForm extends Form {
 				$actions->push(LiteralField::create(
 					'forgotUsername',
 					'<p id="ForgotUsername"><a href="' . UsernameSecurity::lost_username_url() . '">'
-					. _t('Member.BUTTONLOSTUSERNAME', "_I've lost my username") . '</a></p>'
+					. _t('SilverStripe\\Security\\Member.BUTTONLOSTUSERNAME', "_I've lost my username") . '</a></p>'
 				));
             }
         }
@@ -198,7 +198,7 @@ class UsernameMemberLoginForm extends Form {
 		$forceMessage = $session->get('MemberLoginForm.force_message');
 		if(($member = Security::getCurrentUser()) && !$forceMessage) {
 			$this->message = _t(
-				'Member.LOGGEDINAS',
+				'SilverStripe\\Security\\Member.LOGGEDINAS',
 				"You're logged in as {name}.",
 				array('name' => $member->{$this->loggedInAsField})
 			);
