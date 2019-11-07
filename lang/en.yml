@@ -1,11 +1,11 @@
 en:
     UsernameSecurity:
         FORGOTUSERNAME: "Forgot Username"
-        NOTEFORGOTUSERNAME: "Enter your e-mail address and we will send you a email containing your username"
+        NOTEFORGOTUSERNAME: "Enter your e-mail address and we will send you an email containing your username"
         FORGOTUSERNAMEBUTTONSEND: "Send me my username"
         LOSTUSERNAMEHEADER: "Lost Username"
         USERNAMESENTHEADER: "Username sent to '{email}'"
-        USERNAMESENTTEXT: "Thank you! the username has been sent to '{email}', provided an account exists for this email"
+        USERNAMESENTTEXT: "Thank you! The username has been sent to '{email}', provided an account exists for this email"
     SilverStripe\Security\Member:
         db_Username: "Username"
         BUTTONLOSTUSERNAME: "I've lost my username"
