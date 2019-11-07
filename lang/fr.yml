@@ -1,15 +1,15 @@
 fr:
     UsernameSecurity:
-        FORGOTUSERNAME: "Identifiant oublié"
-        NOTEFORGOTUSERNAME: "Entrez votre adresse e-mail et nous vous enverrons un e-mail contenant votre nom d'utilisateur"
-        FORGOTUSERNAMEBUTTONSEND: "Envoyez moi mon identifiant"
+        FORGOTUSERNAME: "Nom d’utilisateur oublié"
+        NOTEFORGOTUSERNAME: "Entrez votre adresse courriel et nous vous enverrons un courriel contenant votre nom d'utilisateur"
+        FORGOTUSERNAMEBUTTONSEND: "Envoyez-moi mon nom d’utilisateur"
         LOSTUSERNAMEHEADER: "Nom d'utilisateur perdu"
-        USERNAMESENTHEADER: "Nom d'utilisateur envoyé à '{email}'"
-        USERNAMESENTTEXT: "Je vous remercie! le nom d'utilisateur a été envoyé à '{email}', à condition qu'un compte existe pour cet email"
+        USERNAMESENTHEADER: "Nom d'utilisateur envoyé à '{email}''"
+        USERNAMESENTTEXT: "Je vous remercie! Le nom d'utilisateur a été envoyé à '{email}', à condition qu'un compte existe pour ce courriel."
     SilverStripe\Security\Member:
         db_Username: "Nom d'utilisateur"
-        BUTTONLOSTUSERNAME: "J'ai perdu mon identifiant"
+        BUTTONLOSTUSERNAME: "J'ai perdu mon d’utilisateur"
         SUBJECTYOURUSERNAME: "Votre nom d'utilisateur pour %s"
-        USERNAMEENTEREMAIL: "Veuillez entrer une adresse email pour obtenir un email contenant votre nom d'utilisateur."
+        USERNAMEENTEREMAIL: "Veuillez entrer une adresse courriel pour obtenir un courriel contenant votre nom d'utilisateur."
     ForgotUsernameEmail_ss:
         TEXT1: "Votre nom d'utilisateur est"
