@@ -8,7 +8,7 @@ fr:
         USERNAMESENTTEXT: "Je vous remercie! Le nom d'utilisateur a été envoyé à '{email}', à condition qu'un compte existe pour ce courriel."
     SilverStripe\Security\Member:
         db_Username: "Nom d'utilisateur"
-        BUTTONLOSTUSERNAME: "J'ai perdu mon d’utilisateur"
+        BUTTONLOSTUSERNAME: "J’ai perdu mon nom d’utilisateur"
         SUBJECTYOURUSERNAME: "Votre nom d'utilisateur pour %s"
         USERNAMEENTEREMAIL: "Veuillez entrer une adresse courriel pour obtenir un courriel contenant votre nom d'utilisateur."
     ForgotUsernameEmail_ss:
